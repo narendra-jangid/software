@@ -1,3 +1,30 @@
+
+"use client";
+import { motion } from "framer-motion";
+
+const fadeUp = {
+  hidden: {
+    opacity: 0,
+    y: 60,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.8,
+    },
+  },
+};
+
+const staggerContainer = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
+
 export default function Home() {
 
 
@@ -85,17 +112,61 @@ const teamMembers = [
       <div className="absolute bottom-[-150px] left-[30%] h-[350px] w-[350px] rounded-full bg-purple-500/10 blur-3xl"></div>
 
       {/* Navbar */}
-      <header className="fixed top-0 z-50 w-full">
-        <div className="mx-auto mt-4 flex max-w-7xl items-center justify-between rounded-2xl border border-white/10 bg-black/30 px-6 py-4 shadow-2xl backdrop-blur-xl">
+      {/* PREMIUM ANIMATED NAVBAR */}
+      <motion.header
+        initial={{
+          y: -120,
+          opacity: 0,
+        }}
+        animate={{
+          y: 0,
+          opacity: 1,
+        }}
+        transition={{
+          duration: 1,
+          ease: "easeOut",
+        }}
+        className="fixed top-0 z-50 w-full"
+      >
 
-          {/* Logo */}
-          <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600 font-bold text-white shadow-lg">
+        <motion.div
+          initial={{
+            scale: 0.9,
+          }}
+          animate={{
+            scale: 1,
+          }}
+          transition={{
+            duration: 0.8,
+          }}
+          className="mx-auto mt-4 flex max-w-7xl items-center justify-between rounded-2xl border border-white/10 bg-black/30 px-6 py-4 shadow-2xl backdrop-blur-xl"
+        >
+
+          {/* LEFT LOGO */}
+          <motion.div
+            whileHover={{
+              scale: 1.05,
+            }}
+            className="flex items-center gap-3"
+          >
+
+            {/* ROTATING LOGO */}
+            <motion.div
+              animate={{
+                rotate: [0, 10, -10, 0],
+                y: [0, -4, 0],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+              }}
+              className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-fuchsia-500 to-violet-600 font-bold text-white shadow-lg"
+            >
               T
-            </div>
+            </motion.div>
 
             <div>
-              <h1 className="text-xl font-bold">
+              <h1 className="text-xl font-bold text-white">
                 TechNova
               </h1>
 
@@ -103,37 +174,66 @@ const teamMembers = [
                 Software Solutions
               </p>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Nav */}
+          {/* NAV ITEMS */}
           <nav className="hidden items-center gap-10 md:flex">
-            <a href="#services" className="text-gray-300 transition hover:text-cyan-400">
-              Services
-            </a>
 
-            <a href="#projects" className="text-gray-300 transition hover:text-cyan-400">
-              Projects
-            </a>
+            {[
+              "Services",
+              "Projects",
+              "About",
+              "Team",
+              "Contact",
+            ].map((item, index) => (
+              <motion.a
+                key={index}
+                href={`#${item.toLowerCase()}`}
+                initial={{
+                  opacity: 0,
+                  y: -20,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                transition={{
+                  delay: index * 0.1,
+                }}
+                whileHover={{
+                  y: -3,
+                  scale: 1.08,
+                }}
+                className="relative text-gray-300 transition hover:text-fuchsia-400"
+              >
+                {item}
 
-            <a href="#about" className="text-gray-300 transition hover:text-cyan-400">
-              About
-            </a>
-
-            <a href="#testimonials" className="text-gray-300 transition hover:text-cyan-400">
-              Testimonials
-            </a>
-
-            <a href="#contact" className="text-gray-300 transition hover:text-cyan-400">
-              Contact
-            </a>
+                {/* ANIMATED UNDERLINE */}
+                <motion.span
+                  whileHover={{
+                    width: "100%",
+                  }}
+                  className="absolute -bottom-2 left-0 h-[2px] w-0 bg-fuchsia-500"
+                />
+              </motion.a>
+            ))}
           </nav>
 
-          {/* Button */}
-          <button className="rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 px-5 py-3 font-semibold text-white shadow-xl transition hover:scale-105 hover:shadow-cyan-500/40">
+          {/* BUTTON */}
+          <motion.button
+            whileHover={{
+              scale: 1.08,
+              boxShadow: "0px 0px 25px rgba(217,70,239,0.6)",
+            }}
+            whileTap={{
+              scale: 0.95,
+            }}
+            className="rounded-2xl bg-gradient-to-r from-fuchsia-500 to-violet-600 px-5 py-3 font-semibold text-white shadow-xl"
+          >
             Start Project
-          </button>
-        </div>
-      </header>
+          </motion.button>
+        </motion.div>
+      </motion.header>
 
       {/* Hero */}
       <section className="relative pt-44">
@@ -145,127 +245,454 @@ const teamMembers = [
           {/* Left */}
           <div>
 
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-2 text-sm text-cyan-300">
+            {/* Badge */}
+            <motion.div
+              initial={{
+                opacity: 0,
+                y: 30,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                duration: 0.8,
+              }}
+              className="mb-6 inline-flex items-center gap-2 rounded-full border border-fuchsia-400/30 bg-fuchsia-400/10 px-4 py-2 text-sm text-fuchsia-300"
+            >
               🚀 Trusted by startups worldwide
+            </motion.div>
+
+            {/* Animated Heading */}
+            {/* ADVANCED CINEMATIC HEADING */}
+            <div className="relative mb-10">
+
+              {/* Glow Behind Text */}
+              <motion.div
+                animate={{
+                  scale: [1, 1.2, 1],
+                  opacity: [0.4, 0.7, 0.4],
+                }}
+                transition={{
+                  duration: 6,
+                  repeat: Infinity,
+                }}
+                className="absolute left-10 top-10 h-52 w-52 rounded-full bg-fuchsia-500/20 blur-3xl"
+              />
+
+              {/* FIRST LINE */}
+              <div className="overflow-hidden">
+
+                <motion.h1
+                  initial={{
+                    x: -1200,
+                    opacity: 0,
+                    filter: "blur(20px)",
+                    rotate: -8,
+                  }}
+                  animate={{
+                    x: 0,
+                    opacity: 1,
+                    filter: "blur(0px)",
+                    rotate: 0,
+                  }}
+                  transition={{
+                    duration: 1.4,
+                    type: "spring",
+                    stiffness: 80,
+                    damping: 14,
+                  }}
+                  className="relative z-10 text-5xl font-black leading-tight tracking-tight md:text-7xl"
+                >
+                  We Build
+                </motion.h1>
+              </div>
+
+              {/* SECOND LINE */}
+              <div className="overflow-hidden">
+
+                <motion.h1
+                  initial={{
+                    x: 1400,
+                    opacity: 0,
+                    filter: "blur(20px)",
+                    rotate: 8,
+                  }}
+                  animate={{
+                    x: 0,
+                    opacity: 1,
+                    filter: "blur(0px)",
+                    rotate: 0,
+                  }}
+                  transition={{
+                    duration: 1.6,
+                    delay: 0.15,
+                    type: "spring",
+                    stiffness: 80,
+                    damping: 14,
+                  }}
+                  className="relative z-10 bg-gradient-to-r from-fuchsia-400 via-purple-400 to-violet-500 bg-clip-text text-5xl font-black leading-tight tracking-tight text-transparent md:text-7xl"
+                >
+                  Modern Software
+                </motion.h1>
+              </div>
+
+              {/* THIRD LINE */}
+              <div className="overflow-hidden">
+
+                <motion.h1
+                  initial={{
+                    y: 300,
+                    scale: 0.7,
+                    opacity: 0,
+                    filter: "blur(20px)",
+                  }}
+                  animate={{
+                    y: 0,
+                    scale: 1,
+                    opacity: 1,
+                    filter: "blur(0px)",
+                  }}
+                  transition={{
+                    duration: 1.4,
+                    delay: 0.35,
+                    type: "spring",
+                    stiffness: 90,
+                    damping: 12,
+                  }}
+                  className="relative z-10 text-5xl font-black leading-tight tracking-tight md:text-7xl"
+                >
+                  For Growing Businesses
+                </motion.h1>
+              </div>
+
+              {/* Floating Mini Text */}
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  y: 30,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                transition={{
+                  delay: 1.2,
+                  duration: 1,
+                }}
+                className="mt-6 flex items-center gap-3 text-sm text-fuchsia-300"
+              >
+                <motion.div
+                  animate={{
+                    scale: [1, 1.3, 1],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                  }}
+                  className="h-2 w-2 rounded-full bg-fuchsia-400"
+                />
+
+                AI Powered • Cloud Native • Enterprise Ready
+              </motion.div>
             </div>
 
-            <h1 className="mb-8 text-5xl font-extrabold leading-tight md:text-7xl">
-              We Build
-              <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-                {" "}Modern Software
-              </span>
-              <br />
-              For Growing Businesses
-            </h1>
 
-            <p className="max-w-xl text-lg leading-relaxed text-gray-400">
+            {/* Description */}
+            <motion.p
+              initial={{
+                opacity: 0,
+                y: 40,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                delay: 0.8,
+                duration: 1,
+              }}
+              className="max-w-xl text-lg leading-relaxed text-gray-400"
+            >
               High-performance web platforms, mobile applications,
               AI systems, and scalable cloud solutions engineered
               for the future.
-            </p>
+            </motion.p>
 
-            <div className="mt-10 flex flex-wrap gap-5">
+            {/* Buttons */}
+            <motion.div
+              initial={{
+                opacity: 0,
+                y: 40,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                delay: 1,
+                duration: 1,
+              }}
+              className="mt-10 flex flex-wrap gap-5"
+            >
 
-              <button className="rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 px-7 py-4 font-semibold text-white shadow-2xl transition hover:scale-105">
+              <motion.button
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0px 0px 25px rgba(217,70,239,0.6)",
+                }}
+                whileTap={{
+                  scale: 0.95,
+                }}
+                className="rounded-2xl bg-gradient-to-r from-fuchsia-500 to-violet-600 px-7 py-4 font-semibold text-white shadow-2xl"
+              >
                 Get Started
-              </button>
+              </motion.button>
 
-              <button className="rounded-2xl border border-white/10 bg-white/5 px-7 py-4 font-semibold text-white backdrop-blur-lg transition hover:bg-white/10">
+              <motion.button
+                whileHover={{
+                  scale: 1.05,
+                }}
+                whileTap={{
+                  scale: 0.95,
+                }}
+                className="rounded-2xl border border-white/10 bg-white/5 px-7 py-4 font-semibold text-white backdrop-blur-lg transition hover:bg-white/10"
+              >
                 View Portfolio
-              </button>
-            </div>
+              </motion.button>
+            </motion.div>
 
             {/* Stats */}
-            <div className="mt-14 flex flex-wrap gap-10">
+            <motion.div
+              initial={{
+                opacity: 0,
+                y: 50,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                delay: 1.2,
+                duration: 1,
+              }}
+              className="mt-14 flex flex-wrap gap-10"
+            >
 
-              <div>
-                <h3 className="text-4xl font-bold text-cyan-400">
-                  150+
-                </h3>
-
-                <p className="mt-1 text-gray-400">
-                  Projects
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-4xl font-bold text-cyan-400">
-                  50+
-                </h3>
-
-                <p className="mt-1 text-gray-400">
-                  Clients
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-4xl font-bold text-cyan-400">
-                  99%
-                </h3>
-
-                <p className="mt-1 text-gray-400">
-                  Satisfaction
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Right */}
-          <div className="relative">
-
-            <div className="rounded-[36px] border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-xl">
-
-              <div className="mb-6 flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-gray-400">
-                    Active Projects
-                  </p>
-
-                  <h3 className="mt-2 text-4xl font-bold">
-                    24
+              {[
+                ["150+", "Projects"],
+                ["50+", "Clients"],
+                ["99%", "Satisfaction"],
+              ].map(([num, text], index) => (
+                <motion.div
+                  key={index}
+                  whileHover={{
+                    y: -5,
+                  }}
+                >
+                  <h3 className="text-4xl font-bold text-fuchsia-400">
+                    {num}
                   </h3>
-                </div>
 
-                <div className="rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 px-5 py-4 text-xl font-bold">
-                  ⚡
-                </div>
-              </div>
-
-              <div className="space-y-5">
-
-                {["AI Automation Platform", "Enterprise Dashboard", "Cloud Infrastructure"].map((item, index) => (
-                  <div
-                    key={index}
-                    className="rounded-2xl border border-white/10 bg-black/20 p-5"
-                  >
-                    <div className="mb-3 flex items-center justify-between">
-
-                      <h4 className="font-semibold">
-                        {item}
-                      </h4>
-
-                      <span className="text-sm text-cyan-400">
-                        Live
-                      </span>
-                    </div>
-
-                    <div className="h-2 rounded-full bg-gray-800">
-
-                      <div
-                        className={`h-2 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 ${
-                          index === 0
-                            ? "w-[85%]"
-                            : index === 1
-                            ? "w-[70%]"
-                            : "w-[92%]"
-                        }`}
-                      ></div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+                  <p className="mt-1 text-gray-400">
+                    {text}
+                  </p>
+                </motion.div>
+              ))}
+            </motion.div>
           </div>
+
+
+{/* Right */}
+<motion.div
+  initial={{
+    opacity: 0,
+    x: 120,
+  }}
+  animate={{
+    opacity: 1,
+    x: 0,
+  }}
+  transition={{
+    duration: 1.2,
+    ease: "easeOut",
+  }}
+  className="relative"
+>
+
+  {/* Floating Glow */}
+  <motion.div
+    animate={{
+      y: [0, -20, 0],
+      x: [0, 10, 0],
+    }}
+    transition={{
+      duration: 6,
+      repeat: Infinity,
+    }}
+    className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-fuchsia-500/20 blur-3xl"
+  />
+
+  {/* Main Card */}
+  <motion.div
+    whileHover={{
+      y: -8,
+    }}
+    transition={{
+      duration: 0.4,
+    }}
+    className="relative overflow-hidden rounded-[36px] border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-xl"
+  >
+
+    {/* Animated Background */}
+    <div className="absolute inset-0 bg-gradient-to-br from-fuchsia-500/10 via-transparent to-violet-500/10"></div>
+
+    {/* Top */}
+    <div className="relative z-10 mb-8 flex items-center justify-between">
+
+      <div>
+
+        <p className="text-sm text-gray-400">
+          Active Projects
+        </p>
+
+        <motion.h3
+          initial={{
+            scale: 0.5,
+            opacity: 0,
+          }}
+          animate={{
+            scale: 1,
+            opacity: 1,
+          }}
+          transition={{
+            delay: 0.4,
+            duration: 0.8,
+          }}
+          className="mt-2 text-5xl font-bold"
+        >
+          24
+        </motion.h3>
+      </div>
+
+      {/* Animated Icon */}
+      <motion.div
+        animate={{
+          rotate: [0, 10, -10, 0],
+          scale: [1, 1.1, 1],
+        }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+        }}
+        className="rounded-3xl bg-gradient-to-br from-fuchsia-500 to-violet-600 px-5 py-4 text-2xl font-bold shadow-2xl"
+      >
+        ⚡
+      </motion.div>
+    </div>
+
+    {/* Cards */}
+    <div className="relative z-10 space-y-5">
+
+      {[
+        {
+          name: "AI Automation Platform",
+          progress: "85%",
+          width: "w-[85%]",
+        },
+        {
+          name: "Enterprise Dashboard",
+          progress: "70%",
+          width: "w-[70%]",
+        },
+        {
+          name: "Cloud Infrastructure",
+          progress: "92%",
+          width: "w-[92%]",
+        },
+      ].map((item, index) => (
+        <motion.div
+          key={index}
+          initial={{
+            opacity: 0,
+            y: 40,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            delay: index * 0.3,
+            duration: 0.8,
+          }}
+          whileHover={{
+            scale: 1.02,
+            borderColor: "rgba(217,70,239,0.4)",
+          }}
+          className="rounded-3xl border border-white/10 bg-black/20 p-5 backdrop-blur-xl"
+        >
+
+          {/* Top Row */}
+          <div className="mb-4 flex items-center justify-between">
+
+            <h4 className="font-semibold text-white">
+              {item.name}
+            </h4>
+
+            <motion.span
+              animate={{
+                opacity: [1, 0.5, 1],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+              }}
+              className="text-sm font-medium text-fuchsia-400"
+            >
+              Live
+            </motion.span>
+          </div>
+
+          {/* Progress */}
+          <div className="h-2 overflow-hidden rounded-full bg-gray-800">
+
+            <motion.div
+              initial={{
+                width: 0,
+              }}
+              animate={{
+                width: item.progress,
+              }}
+              transition={{
+                delay: 0.5 + index * 0.3,
+                duration: 1.5,
+              }}
+              className={`h-2 rounded-full bg-gradient-to-r from-fuchsia-400 to-violet-500 ${item.width}`}
+            />
+          </div>
+
+          {/* Bottom */}
+          <div className="mt-3 flex items-center justify-between text-sm">
+
+            <span className="text-gray-400">
+              Deployment Status
+            </span>
+
+            <span className="text-fuchsia-400">
+              {item.progress}
+            </span>
+          </div>
+        </motion.div>
+      ))}
+    </div>
+
+    {/* Decorative Glow */}
+    <div className="absolute -bottom-20 -left-20 h-52 w-52 rounded-full bg-violet-500/10 blur-3xl"></div>
+  </motion.div>
+</motion.div>
+
+
+
         </div>
       </section>
 
