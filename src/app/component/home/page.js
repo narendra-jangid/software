@@ -2,12 +2,10 @@
 import React, { useRef, useState } from "react";
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { emeraldTheme as theme } from "../newtheme";
+// import { emeraldTheme as theme } from "../newtheme";//1
 
 
-//import { theme } from '../theme';
-//import { theme } from '../cyantheme';
-import { theme } from '../emeraldtheme';
-//import { theme } from '../emeratlighttheme';
 
 // ===== ANIMATION VARIANTS =====
 const slideInFromLeft = {
@@ -172,50 +170,42 @@ function SplitText({ text, className = "" }) {
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const teamMembers = [
-    { name: "Narendra Jangid", role: "Founder & Backend Engineer", image: "https://i.pravatar.cc/300?img=12" },
-    { name: "Aarav Mehta", role: "Frontend Developer", image: "https://i.pravatar.cc/300?img=15" },
-    { name: "Priya Sharma", role: "UI/UX Designer", image: "https://i.pravatar.cc/300?img=32" },
-    { name: "Rahul Verma", role: "Cloud Architect", image: "https://i.pravatar.cc/300?img=18" },
-  ];
-
-  const services = [
-    { title: "Web Development", desc: "Modern, scalable, and high-performance web applications.", icon: "🌐" },
-    { title: "Mobile Apps", desc: "Beautiful Android and iOS applications with seamless UX.", icon: "📱" },
-    { title: "Cloud Solutions", desc: "Secure cloud infrastructure and scalable architecture.", icon: "☁️" },
-    { title: "AI & Automation", desc: "AI-powered systems and intelligent automation.", icon: "🤖" },
-  ];
-
-  const projects = [
-    { name: "Healthcare Management System", tech: "Spring Boot • React • MongoDB", icon: "🏥", color: "from-emerald-500" },
-    { name: "E-Commerce Platform", tech: "Node.js • Next.js • PostgreSQL", icon: "🛍️", color: "from-blue-500" },
-    { name: "Real-Time Analytics Dashboard", tech: "Kafka • Redis • Java", icon: "📊", color: "from-purple-500" },
-  ];
-
-  const testimonials = [
-    { name: "Rahul Sharma", company: "Fintech Solutions", feedback: "Exceptional quality and performance delivered on time." },
-    { name: "Priya Verma", company: "HealthCare Plus", feedback: "Professional team with outstanding technical expertise." },
-  ];
+  const teamMembers = theme.content.teamMembers;
+  const services = theme.content.services;
+  const projects = theme.content.projects;
+  const testimonials = theme.content.testimonials;
 
   return (
-    <div className={`min-h-screen overflow-hidden ${theme.background.darkest === "#050816" ? "bg-[#050816]" : "bg-[#0f0f1e]"} text-white`}>
+    <div
+      className="min-h-screen overflow-hidden text-white"
+      style={{ backgroundColor: theme.background.darkest }}
+    >
       {/* ===== ANIMATED BACKGROUND ORBS ===== */}
       <motion.div
         animate={{ x: [0, 30, 0], y: [0, 50, 0] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        className={`fixed left-[-100px] top-[-100px] h-[350px] w-[350px] rounded-full ${theme.glows.primary} blur-3xl pointer-events-none`}
+        className="fixed left-[-100px] top-[-100px] h-[350px] w-[350px] rounded-full blur-3xl pointer-events-none"
+        style={{
+          background: theme.glows.primary,
+        }}
       />
 
       <motion.div
         animate={{ x: [0, -30, 0], y: [0, -50, 0] }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        className={`fixed right-[-120px] top-[500px] h-[400px] w-[400px] rounded-full ${theme.glows.secondary} blur-3xl pointer-events-none`}
+        className="fixed right-[-120px] top-[500px] h-[400px] w-[400px] rounded-full blur-3xl pointer-events-none"
+        style={{
+          background: theme.glows.secondary,
+        }}
       />
 
       <motion.div
         animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
         transition={{ duration: 8, repeat: Infinity }}
-        className={`fixed bottom-[-150px] left-[30%] h-[350px] w-[350px] rounded-full ${theme.glows.tertiary} blur-3xl pointer-events-none`}
+        className="fixed bottom-[-150px] left-[30%] h-[350px] w-[350px] rounded-full blur-3xl pointer-events-none"
+        style={{
+          background: theme.glows.tertiary,
+        }}
       />
 
       {/* ===== NAVBAR ===== */}
@@ -228,19 +218,30 @@ export default function Home() {
         <motion.div
           initial={{ scale: 0.95 }}
           animate={{ scale: 1 }}
-          className={`mx-auto mt-4 flex max-w-7xl items-center justify-between rounded-2xl ${theme.borders.light} bg-black/40 px-6 py-4 shadow-2xl backdrop-blur-xl`}
+          className="mx-auto mt-4 flex max-w-7xl items-center justify-between rounded-2xl px-6 py-4 shadow-2xl backdrop-blur-xl"
+          style={{
+            border: `1px solid ${theme.borders.light}`,
+            backgroundColor: theme.navbar.background,
+          }}
         >
           <motion.div whileHover={{ scale: 1.05 }} className="flex items-center gap-3 cursor-pointer">
             <motion.div
               animate={{ rotate: [0, 15, -15, 0], y: [0, -5, 0] }}
               transition={{ duration: 4, repeat: Infinity }}
-              className={`flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br ${theme.gradients.primary} font-bold text-white shadow-lg`}
+              className="flex h-11 w-11 items-center justify-center rounded-2xl font-bold text-white shadow-lg"
+              style={{
+                background: theme.gradients.primary,
+              }}
             >
-              T
+              {theme.brand.logoText}
             </motion.div>
             <div>
-              <h1 className="text-lg font-bold">TechNova</h1>
-              <p className="text-xs text-gray-400">Software Solutions</p>
+              <h1 className="text-lg font-bold" style={{ color: theme.text.primary }}>
+                {theme.brand.name}
+              </h1>
+              <p className="text-xs" style={{ color: theme.text.muted }}>
+                {theme.brand.tagline}
+              </p>
             </div>
           </motion.div>
 
@@ -253,12 +254,16 @@ export default function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
                 whileHover={{ y: -3 }}
-                className={`relative text-gray-300 text-sm font-medium group ${theme.hoverText}`}
+                className="relative text-sm font-medium group"
+                style={{ color: theme.text.secondary }}
               >
                 {item}
                 <motion.span
                   whileHover={{ width: "100%" }}
-                  className={`absolute -bottom-2 left-0 h-0.5 w-0 bg-gradient-to-r ${theme.gradients.border}`}
+                  className="absolute -bottom-2 left-0 h-0.5 w-0"
+                  style={{
+                    background: theme.gradients.border,
+                  }}
                 />
               </motion.a>
             ))}
@@ -268,9 +273,12 @@ export default function Home() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className={`hidden md:block rounded-xl bg-gradient-to-r ${theme.gradients.primary} px-5 py-2.5 text-sm font-bold text-white shadow-lg`}
+              className="hidden md:block rounded-xl px-5 py-2.5 text-sm font-bold text-white shadow-lg"
+              style={{
+                background: theme.gradients.primary,
+              }}
             >
-              Start Project
+              {theme.buttons.cta}
             </motion.button>
             <button className="md:hidden text-white" onClick={() => setMenuOpen(!menuOpen)}>
               {menuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -285,11 +293,20 @@ export default function Home() {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className={`md:hidden bg-black/80 backdrop-blur-xl border-t ${theme.borders.light}`}
+              className="md:hidden backdrop-blur-xl border-t"
+              style={{
+                backgroundColor: theme.navbar.mobileMenu,
+                borderColor: theme.borders.light,
+              }}
             >
               <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-4">
                 {["Services", "Projects", "Team", "Contact"].map((item) => (
-                  <a key={item} href={`#${item.toLowerCase()}`} className="text-sm font-medium text-gray-300">
+                  <a
+                    key={item}
+                    href={`#${item.toLowerCase()}`}
+                    className="text-sm font-medium"
+                    style={{ color: theme.text.secondary }}
+                  >
                     {item}
                   </a>
                 ))}
@@ -301,42 +318,63 @@ export default function Home() {
 
       {/* ===== HERO SECTION ===== */}
       <section className="relative pt-44 pb-20">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
+        <div
+          className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:60px_60px]"
+        />
 
         <div className="relative mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-2 gap-16 items-center px-6 py-24">
           {/* LEFT CONTENT */}
           <div className="space-y-8">
             {/* Badge */}
             <ScrollReveal variant={slideInFromLeft}>
-              <motion.div className={`inline-flex items-center gap-2 rounded-full border border-${theme.primary.main}/30 bg-${theme.primary.main}/10 px-4 py-2 text-sm text-${theme.primary.light} w-fit`}>
+              <motion.div
+                className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm w-fit"
+                style={{
+                  borderColor: `${theme.primary.main}4D`,
+                  backgroundColor: `${theme.primary.main}1A`,
+                  color: theme.primary.light,
+                }}
+              >
                 <motion.span animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 2, repeat: Infinity }}>
                   🚀
                 </motion.span>
-                Trusted by startups worldwide
+                {theme.content.heroSection.badge}
               </motion.div>
             </ScrollReveal>
 
             {/* Heading with Split Text */}
             <div className="space-y-4">
               <ScrollReveal variant={slideInFromLeft} index={1}>
-                <h1 className="text-6xl md:text-7xl font-black leading-tight">We Build</h1>
+                <h1 className="text-6xl md:text-7xl font-black leading-tight" style={{ color: theme.text.primary }}>
+                  {theme.content.heroSection.heading1}
+                </h1>
               </ScrollReveal>
 
               <ScrollReveal variant={slideInFromRight} index={2}>
-                <h1 className={`text-6xl md:text-7xl font-black bg-gradient-to-r ${theme.gradients.secondary} bg-clip-text text-transparent leading-tight`}>
-                  Modern Software
+                <h1
+                  className="text-6xl md:text-7xl font-black bg-clip-text text-transparent leading-tight"
+                  style={{
+                    backgroundImage: theme.gradients.secondary,
+                    backgroundClip: "text",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                  }}
+                >
+                  {theme.content.heroSection.heading2}
                 </h1>
               </ScrollReveal>
 
               <ScrollReveal variant={slideInFromLeft} index={3}>
-                <h1 className="text-6xl md:text-7xl font-black leading-tight">For Growing Businesses</h1>
+                <h1 className="text-6xl md:text-7xl font-black leading-tight" style={{ color: theme.text.primary }}>
+                  {theme.content.heroSection.heading3}
+                </h1>
               </ScrollReveal>
             </div>
 
             {/* Description */}
             <ScrollReveal variant={slideInFromLeft} index={4}>
-              <p className="max-w-xl text-lg text-gray-400 leading-relaxed">
-                High-performance web platforms, mobile applications, AI systems, and scalable cloud solutions engineered for the future.
+              <p className="max-w-xl text-lg leading-relaxed" style={{ color: theme.text.secondary }}>
+                {theme.content.heroSection.description}
               </p>
             </ScrollReveal>
 
@@ -346,33 +384,53 @@ export default function Home() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className={`px-7 py-4 bg-gradient-to-r ${theme.gradients.primary} rounded-xl font-bold text-white shadow-lg`}
+                  className="px-7 py-4 rounded-xl font-bold text-white shadow-lg"
+                  style={{
+                    background: theme.gradients.primary,
+                  }}
                 >
-                  Get Started
+                  {theme.buttons.primary}
                 </motion.button>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className={`px-7 py-4 border-2 border-white/20 rounded-xl font-bold text-white hover:bg-white/10 transition-all`}
+                  className="px-7 py-4 rounded-xl font-bold transition-all"
+                  style={{
+                    border: `2px solid ${theme.borders.light}`,
+                    color: theme.text.primary,
+                    backgroundColor: "transparent",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.backgroundColor = `${theme.primary.main}20`;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.backgroundColor = "transparent";
+                  }}
                 >
-                  View Portfolio
+                  {theme.buttons.secondary}
                 </motion.button>
               </motion.div>
             </ScrollReveal>
 
             {/* Stats */}
             <ScrollReveal variant={slideInFromLeft} index={6}>
-              <motion.div className={`flex flex-wrap gap-12 pt-8 border-t border-white/10`}>
-                {[
-                  { num: "150+", label: "Projects" },
-                  { num: "50+", label: "Clients" },
-                  { num: "99%", label: "Satisfaction" },
-                ].map((stat, i) => (
+              <motion.div
+                className="flex flex-wrap gap-12 pt-8 border-t"
+                style={{
+                  borderColor: theme.borders.light,
+                }}
+              >
+                {theme.content.heroSection.stats.map((stat, i) => (
                   <motion.div key={i} whileHover={{ y: -5 }}>
-                    <motion.h3 className={`text-4xl font-bold text-${theme.primary.light}`}>
+                    <motion.h3
+                      className="text-4xl font-bold"
+                      style={{ color: theme.primary.light }}
+                    >
                       {stat.num}
                     </motion.h3>
-                    <p className="text-gray-400 mt-1">{stat.label}</p>
+                    <p className="mt-1" style={{ color: theme.text.secondary }}>
+                      {stat.label}
+                    </p>
                   </motion.div>
                 ))}
               </motion.div>
@@ -380,70 +438,127 @@ export default function Home() {
           </div>
 
           {/* RIGHT HERO CARD */}
-          <ParallaxSection offset={30}>
-            <ScrollReveal variant={slideInFromRight}>
-              <motion.div whileHover={{ y: -10 }} className="relative group">
-                {/* Animated glow */}
-                <motion.div
-                  animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
-                  transition={{ duration: 4, repeat: Infinity }}
-                  className={`absolute -inset-10 bg-gradient-to-r ${theme.gradients.primary} rounded-3xl blur-3xl opacity-30`}
-                />
+          {/* RIGHT HERO CARD */}
+<ParallaxSection offset={30}>
+  <ScrollReveal variant={slideInFromRight}>
+    <motion.div
+      whileHover={{ y: -6 }}
+      transition={{ duration: 0.3 }}
+      className="relative"
+    >
 
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  className={`relative rounded-3xl ${theme.borders.light} bg-gradient-to-br from-slate-800 to-slate-900 p-8 shadow-2xl backdrop-blur-xl overflow-hidden`}
-                >
-                  <div className={`absolute inset-0 bg-gradient-to-br ${theme.gradients.hover}`} />
+      {/* Soft Background Glow */}
+      <div
+        className="absolute -inset-6 rounded-[32px] blur-2xl opacity-10"
+        style={{
+          backgroundImage: theme.glows.primary,
+        }}
+      />
 
-                  <div className="relative z-10 space-y-6">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm text-gray-400">Active Projects</p>
-                        <motion.h3 className="text-5xl font-bold mt-2">24</motion.h3>
-                      </div>
-                      <motion.div
-                        animate={{ rotate: [0, 20, -20, 0], scale: [1, 1.1, 1] }}
-                        transition={{ duration: 4, repeat: Infinity }}
-                        className="text-4xl"
-                      >
-                        ⚡
-                      </motion.div>
-                    </div>
+      {/* Main Card */}
+      <motion.div
+       initial={false}
+        whileHover={{ scale: 1.01 }}
+        className="
+          relative
+          rounded-[32px]
+          p-8
+          overflow-hidden
+          backdrop-blur-2xl
+          bg-white/[0.04]
+          border
+          shadow-2xl
+        "
+        style={{
+          borderColor: theme.borders.light,
+        }}
+      >
 
-                    {/* Project Items */}
-                    <motion.div className="space-y-4">
-                      {[
-                        { name: "AI Automation Platform", progress: "85%" },
-                        { name: "Enterprise Dashboard", progress: "70%" },
-                        { name: "Cloud Infrastructure", progress: "92%" },
-                      ].map((item, i) => (
-                        <ScrollReveal key={i} variant={slideInFromRight} index={i}>
-                          <motion.div whileHover={{ x: 8, scale: 1.02 }} className={`rounded-2xl border border-white/10 bg-black/30 p-4`}>
-                            <div className="flex justify-between mb-3">
-                              <h4 className="text-sm font-semibold">{item.name}</h4>
-                              <motion.span className={`text-xs ${theme.hoverText}`}>
-                                Live
-                              </motion.span>
-                            </div>
-                            <div className="h-2 bg-gray-800 rounded-full overflow-hidden">
-                              <motion.div
-                                initial={{ width: 0 }}
-                                whileInView={{ width: item.progress }}
-                                viewport={{ once: true }}
-                                transition={{ delay: 0.2, duration: 1.5 }}
-                                className={`h-full bg-gradient-to-r ${theme.gradients.primary}`}
-                              />
-                            </div>
-                          </motion.div>
-                        </ScrollReveal>
-                      ))}
-                    </motion.div>
+        {/* Subtle Overlay */}
+        <div
+          className="absolute inset-0 opacity-40"
+          style={{
+            backgroundImage: theme.gradients.cardHover,
+          }}
+        />
+
+        <div className="relative z-10">
+
+          {/* Top */}
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <p
+                className="text-sm mb-2"
+                style={{ color: theme.text.secondary }}
+              >
+                {theme.content.heroCard.label}
+              </p>
+
+              <h3
+                className="text-5xl font-bold tracking-tight"
+                style={{ color: theme.text.primary }}
+              >
+                {theme.content.heroCard.activeProjects}
+              </h3>
+            </div>
+
+            {/* Minimal Dot */}
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 rounded-full bg-green-400 animate-pulse" />
+              <span
+                className="text-xs"
+                style={{ color: theme.text.secondary }}
+              >
+                Active
+              </span>
+            </div>
+          </div>
+
+          {/* Projects */}
+          <div className="space-y-4">
+            {theme.content.heroCard.projects.map((item, i) => (
+              <motion.div
+                key={i}
+                whileHover={{ x: 4 }}
+                transition={{ duration: 0.2 }}
+                className="
+                  rounded-2xl
+                  p-4
+                  bg-white/[0.03]
+                  border
+                  backdrop-blur-xl
+                "
+                style={{
+                  borderColor: "rgba(255,255,255,0.06)",
+                }}
+              >
+
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h4
+                      className="text-sm font-semibold"
+                      style={{ color: theme.text.primary }}
+                    >
+                      {item.name}
+                    </h4>
                   </div>
-                </motion.div>
+
+                  <span
+                    className="text-xs px-3 py-1 rounded-full bg-white/5"
+                    style={{ color: theme.text.secondary }}
+                  >
+                    {item.status}
+                  </span>
+                </div>
               </motion.div>
-            </ScrollReveal>
-          </ParallaxSection>
+            ))}
+          </div>
+
+        </div>
+      </motion.div>
+    </motion.div>
+  </ScrollReveal>
+</ParallaxSection>
         </div>
       </section>
 
@@ -453,19 +568,21 @@ export default function Home() {
           {/* Section Header */}
           <motion.div className="text-center mb-20 space-y-6">
             <ScrollReveal variant={slideInFromTop}>
-              <p className={`${theme.hoverText} text-sm font-bold`}>OUR SERVICES</p>
+              <p className="text-sm font-bold" style={{ color: theme.primary.light }}>
+                {theme.sections.services.label}
+              </p>
             </ScrollReveal>
 
             <ScrollReveal variant={slideInFromBottom} index={1}>
               <SplitText
-                text="Smart Digital Solutions"
+                text={theme.sections.services.title}
                 className="text-5xl md:text-6xl font-black leading-tight"
               />
             </ScrollReveal>
 
             <ScrollReveal variant={slideInFromBottom} index={2}>
-              <p className="mx-auto max-w-2xl text-lg text-gray-400">
-                We create scalable and high-performance applications designed for startups and enterprises.
+              <p className="mx-auto max-w-2xl text-lg" style={{ color: theme.text.secondary }}>
+                {theme.sections.services.description}
               </p>
             </ScrollReveal>
           </motion.div>
@@ -487,9 +604,18 @@ export default function Home() {
                     y: -12,
                     scale: 1.02,
                   }}
-                  className={`group relative rounded-2xl border ${theme.borders.light} bg-white/5 p-8 backdrop-blur-xl overflow-hidden cursor-pointer`}
+                  className="group relative rounded-2xl p-8 backdrop-blur-xl overflow-hidden cursor-pointer"
+                  style={{
+                    border: `1px solid ${theme.borders.light}`,
+                    backgroundColor: `${theme.primary.main}08`,
+                  }}
                 >
-                  <div className={`absolute inset-0 bg-gradient-to-br ${theme.gradients.hover} opacity-0 group-hover:opacity-100 transition-opacity`} />
+                  <div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                    style={{
+                      background: theme.gradients.cardHover,
+                    }}
+                  />
 
                   <div className="relative z-10 space-y-4">
                     <motion.div
@@ -500,18 +626,28 @@ export default function Home() {
                       {service.icon}
                     </motion.div>
 
-                    <h3 className="text-2xl font-bold">{service.title}</h3>
-                    <p className="text-gray-400 text-sm leading-relaxed">{service.desc}</p>
+                    <h3 className="text-2xl font-bold" style={{ color: theme.text.primary }}>
+                      {service.title}
+                    </h3>
+                    <p className="text-sm leading-relaxed" style={{ color: theme.text.secondary }}>
+                      {service.desc}
+                    </p>
 
                     <motion.div
                       whileHover={{ x: 8 }}
-                      className={`flex items-center gap-2 ${theme.hoverText} text-sm font-medium mt-6`}
+                      className="flex items-center gap-2 text-sm font-medium mt-6"
+                      style={{ color: theme.primary.light }}
                     >
                       Explore <span className="text-lg">→</span>
                     </motion.div>
                   </div>
 
-                  <motion.div className={`absolute -right-10 -top-10 h-32 w-32 rounded-full ${theme.glows.primary} blur-3xl group-hover:opacity-100`} />
+                  <motion.div
+                    className="absolute -right-10 -top-10 h-32 w-32 rounded-full blur-3xl"
+                    style={{
+                      background: theme.glows.primary,
+                    }}
+                  />
                 </motion.div>
               </ScrollReveal>
             ))}
@@ -525,19 +661,21 @@ export default function Home() {
           {/* Section Header */}
           <motion.div className="text-center mb-20 space-y-6">
             <ScrollReveal variant={slideInFromTop}>
-              <p className={`${theme.hoverText} text-sm font-bold`}>OUR WORK</p>
+              <p className="text-sm font-bold" style={{ color: theme.primary.light }}>
+                {theme.sections.projects.label}
+              </p>
             </ScrollReveal>
 
             <ScrollReveal variant={slideInFromBottom} index={1}>
               <SplitText
-                text="Featured Projects"
+                text={theme.sections.projects.title}
                 className="text-5xl md:text-6xl font-black leading-tight"
               />
             </ScrollReveal>
 
             <ScrollReveal variant={slideInFromBottom} index={2}>
-              <p className="mx-auto max-w-2xl text-lg text-gray-400">
-                Powerful enterprise-grade systems crafted for modern businesses.
+              <p className="mx-auto max-w-2xl text-lg" style={{ color: theme.text.secondary }}>
+                {theme.sections.projects.description}
               </p>
             </ScrollReveal>
           </motion.div>
@@ -557,23 +695,35 @@ export default function Home() {
                 <ParallaxSection offset={20}>
                   <motion.div
                     whileHover={{ y: -12 }}
-                    className={`group overflow-hidden rounded-2xl border ${theme.borders.light} bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-xl`}
+                    className="group overflow-hidden rounded-2xl backdrop-blur-xl"
+                    style={{
+                      border: `1px solid ${theme.borders.light}`,
+                      backgroundColor: `${theme.background.lighter}80`,
+                    }}
                   >
                     <motion.div
                       whileHover={{ scale: 1.15, rotate: 5 }}
-                      className={`h-48 bg-gradient-to-br ${project.color} via-slate-300 to-slate-400 flex items-center justify-center text-8xl relative overflow-hidden`}
+                      className="h-48 flex items-center justify-center text-8xl relative overflow-hidden"
+                      style={{
+                        background: project.color,
+                      }}
                     >
                       {project.icon}
                       <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-all" />
                     </motion.div>
 
                     <div className="p-8 space-y-4">
-                      <h3 className="text-2xl font-bold text-white">{project.name}</h3>
-                      <p className="text-gray-400 text-sm">{project.tech}</p>
+                      <h3 className="text-2xl font-bold" style={{ color: theme.text.primary }}>
+                        {project.name}
+                      </h3>
+                      <p className="text-sm" style={{ color: theme.text.secondary }}>
+                        {project.tech}
+                      </p>
 
                       <motion.button
                         whileHover={{ x: 8 }}
-                        className={`${theme.hoverText} text-sm font-bold flex items-center gap-2`}
+                        className="text-sm font-bold flex items-center gap-2"
+                        style={{ color: theme.primary.light }}
                       >
                         View Case Study <span className="text-lg">→</span>
                       </motion.button>
@@ -593,15 +743,17 @@ export default function Home() {
           <ScrollReveal variant={slideInFromLeft}>
             <div className="space-y-8">
               <div>
-                <p className={`${theme.hoverText} text-sm font-bold mb-4`}>WHY CHOOSE US</p>
+                <p className="text-sm font-bold mb-4" style={{ color: theme.primary.light }}>
+                  {theme.sections.about.label}
+                </p>
                 <SplitText
-                  text="Engineering Future-Ready Digital Products"
+                  text={theme.sections.about.title}
                   className="text-5xl font-bold leading-tight mb-6"
                 />
               </div>
 
-              <p className="text-lg text-gray-400 leading-relaxed">
-                We combine scalable architecture, modern technologies, and user-focused design to create impactful software experiences.
+              <p className="text-lg leading-relaxed" style={{ color: theme.text.secondary }}>
+                {theme.sections.about.description}
               </p>
 
               <motion.div
@@ -613,23 +765,22 @@ export default function Home() {
                 }}
                 className="space-y-4"
               >
-                {[
-                  {
-                    title: "Scalable Architecture",
-                    desc: "Built using modern cloud-native and microservice architectures.",
-                  },
-                  {
-                    title: "Agile Delivery",
-                    desc: "Faster iterations with transparency and continuous deployment.",
-                  },
-                ].map((item, i) => (
+                {theme.content.aboutFeatures.map((item, i) => (
                   <ScrollReveal key={i} variant={slideInFromLeft} index={i}>
                     <motion.div
                       whileHover={{ x: 10, scale: 1.02 }}
-                      className={`rounded-2xl border ${theme.borders.light} bg-white/5 p-6 backdrop-blur-xl cursor-pointer`}
+                      className="rounded-2xl p-6 backdrop-blur-xl cursor-pointer"
+                      style={{
+                        border: `1px solid ${theme.borders.light}`,
+                        backgroundColor: `${theme.primary.main}08`,
+                      }}
                     >
-                      <h3 className="text-xl font-bold text-white">{item.title}</h3>
-                      <p className="text-gray-400 mt-2 text-sm">{item.desc}</p>
+                      <h3 className="text-xl font-bold" style={{ color: theme.text.primary }}>
+                        {item.title}
+                      </h3>
+                      <p className="mt-2 text-sm" style={{ color: theme.text.secondary }}>
+                        {item.desc}
+                      </p>
                     </motion.div>
                   </ScrollReveal>
                 ))}
@@ -642,7 +793,11 @@ export default function Home() {
             <ScrollReveal variant={slideInFromRight}>
               <motion.div
                 whileHover={{ scale: 1.02 }}
-                className={`rounded-3xl border ${theme.borders.light} bg-gradient-to-br ${theme.gradients.hover} p-12 backdrop-blur-xl`}
+                className="rounded-3xl p-12 backdrop-blur-xl"
+                style={{
+                  border: `1px solid ${theme.borders.light}`,
+                  background: theme.gradients.cardHover,
+                }}
               >
                 <motion.div
                   initial="hidden"
@@ -653,19 +808,18 @@ export default function Home() {
                   }}
                   className="grid grid-cols-2 gap-8"
                 >
-                  {[
-                    ["10+", "Years\nExperience"],
-                    ["80+", "Team\nMembers"],
-                    ["150+", "Projects\nDelivered"],
-                    ["12", "Countries\nServed"],
-                  ].map(([num, label], i) => (
+                  {theme.content.aboutStats.map(([num, label], i) => (
                     <ScrollReveal key={i} variant={scaleInVariant} index={i}>
                       <motion.div
                         whileHover={{ scale: 1.1, y: -5 }}
                         className="space-y-3 cursor-pointer"
                       >
-                        <h3 className={`text-4xl font-black ${theme.hoverText}`}>{num}</h3>
-                        <p className="text-sm text-gray-400 leading-relaxed">{label}</p>
+                        <h3 className="text-4xl font-black" style={{ color: theme.primary.light }}>
+                          {num}
+                        </h3>
+                        <p className="text-sm leading-relaxed" style={{ color: theme.text.secondary }}>
+                          {label}
+                        </p>
                       </motion.div>
                     </ScrollReveal>
                   ))}
@@ -682,19 +836,21 @@ export default function Home() {
           {/* Section Header */}
           <motion.div className="text-center mb-20 space-y-6">
             <ScrollReveal variant={slideInFromTop}>
-              <p className={`${theme.hoverText} text-sm font-bold`}>OUR TEAM</p>
+              <p className="text-sm font-bold" style={{ color: theme.primary.light }}>
+                {theme.sections.team.label}
+              </p>
             </ScrollReveal>
 
             <ScrollReveal variant={slideInFromBottom} index={1}>
               <SplitText
-                text="Meet The Experts"
+                text={theme.sections.team.title}
                 className="text-5xl md:text-6xl font-black leading-tight"
               />
             </ScrollReveal>
 
             <ScrollReveal variant={slideInFromBottom} index={2}>
-              <p className="mx-auto max-w-2xl text-lg text-gray-400">
-                A passionate team of engineers, designers, and innovators building scalable digital experiences.
+              <p className="mx-auto max-w-2xl text-lg" style={{ color: theme.text.secondary }}>
+                {theme.sections.team.description}
               </p>
             </ScrollReveal>
           </motion.div>
@@ -713,14 +869,26 @@ export default function Home() {
               <ScrollReveal key={i} variant={slideInFromBottom} index={i}>
                 <motion.div
                   whileHover={{ y: -12 }}
-                  className={`group relative rounded-2xl border ${theme.borders.light} bg-white/5 p-8 text-center backdrop-blur-xl overflow-hidden`}
+                  className="group relative rounded-2xl p-8 text-center backdrop-blur-xl overflow-hidden"
+                  style={{
+                    border: `1px solid ${theme.borders.light}`,
+                    backgroundColor: `${theme.primary.main}08`,
+                  }}
                 >
-                  <div className={`absolute inset-0 bg-gradient-to-br ${theme.gradients.hover} opacity-0 group-hover:opacity-100 transition-opacity`} />
+                  <div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                    style={{
+                      background: theme.gradients.cardHover,
+                    }}
+                  />
 
                   <div className="relative z-10 space-y-4">
                     <motion.div
                       whileHover={{ scale: 1.05 }}
-                      className={`mx-auto h-32 w-32 rounded-full overflow-hidden border-4 border-white/10`}
+                      className="mx-auto h-32 w-32 rounded-full overflow-hidden"
+                      style={{
+                        border: `4px solid ${theme.borders.light}`,
+                      }}
                     >
                       <motion.img
                         whileHover={{ scale: 1.2 }}
@@ -731,12 +899,16 @@ export default function Home() {
                     </motion.div>
 
                     <div>
-                      <h3 className="text-xl font-bold">{member.name}</h3>
-                      <p className={`${theme.hoverText} text-sm mt-1`}>{member.role}</p>
+                      <h3 className="text-xl font-bold" style={{ color: theme.text.primary }}>
+                        {member.name}
+                      </h3>
+                      <p className="text-sm mt-1" style={{ color: theme.primary.light }}>
+                        {member.role}
+                      </p>
                     </div>
 
-                    <p className="text-xs text-gray-400 leading-relaxed">
-                      Passionate about creating modern software with scalable architecture.
+                    <p className="text-xs leading-relaxed" style={{ color: theme.text.secondary }}>
+                      {member.description || "Passionate about creating modern software with scalable architecture."}
                     </p>
 
                     <motion.div
@@ -753,7 +925,12 @@ export default function Home() {
                           key={j}
                           variants={fadeUp}
                           whileHover={{ scale: 1.15, y: -3 }}
-                          className={`h-8 w-8 rounded-lg border border-white/10 bg-white/5 text-xs font-bold text-gray-300 ${theme.hoverBorder} ${theme.hoverText} transition-all`}
+                          className="h-8 w-8 rounded-lg text-xs font-bold transition-all"
+                          style={{
+                            border: `1px solid ${theme.borders.light}`,
+                            backgroundColor: `${theme.primary.main}15`,
+                            color: theme.primary.light,
+                          }}
                         >
                           {social}
                         </motion.button>
@@ -761,7 +938,12 @@ export default function Home() {
                     </motion.div>
                   </div>
 
-                  <motion.div className={`absolute -right-10 -top-10 h-32 w-32 rounded-full ${theme.glows.primary} blur-3xl`} />
+                  <motion.div
+                    className="absolute -right-10 -top-10 h-32 w-32 rounded-full blur-3xl"
+                    style={{
+                      background: theme.glows.primary,
+                    }}
+                  />
                 </motion.div>
               </ScrollReveal>
             ))}
@@ -775,12 +957,14 @@ export default function Home() {
           {/* Section Header */}
           <motion.div className="text-center mb-20">
             <ScrollReveal variant={slideInFromTop}>
-              <p className={`${theme.hoverText} text-sm font-bold`}>TESTIMONIALS</p>
+              <p className="text-sm font-bold" style={{ color: theme.primary.light }}>
+                {theme.sections.testimonials.label}
+              </p>
             </ScrollReveal>
 
             <ScrollReveal variant={slideInFromBottom} index={1}>
               <SplitText
-                text="What Clients Say"
+                text={theme.sections.testimonials.title}
                 className="text-5xl md:text-6xl font-black leading-tight mt-4"
               />
             </ScrollReveal>
@@ -800,7 +984,11 @@ export default function Home() {
               <ScrollReveal key={i} variant={slideInFromBottom} index={i}>
                 <motion.div
                   whileHover={{ y: -8, scale: 1.02 }}
-                  className={`rounded-2xl border ${theme.borders.light} bg-white/5 p-8 backdrop-blur-xl`}
+                  className="rounded-2xl p-8 backdrop-blur-xl"
+                  style={{
+                    border: `1px solid ${theme.borders.light}`,
+                    backgroundColor: `${theme.primary.main}08`,
+                  }}
                 >
                   <motion.div
                     initial={{ opacity: 0 }}
@@ -814,11 +1002,22 @@ export default function Home() {
                     ))}
                   </motion.div>
 
-                  <p className="text-lg text-gray-300 leading-relaxed mb-6">"{testimonial.feedback}"</p>
+                  <p className="text-lg leading-relaxed mb-6" style={{ color: theme.text.secondary }}>
+                    "{testimonial.feedback}"
+                  </p>
 
-                  <div className={`border-t border-white/10 pt-4`}>
-                    <h4 className="font-bold text-white">{testimonial.name}</h4>
-                    <p className="text-sm text-gray-400">{testimonial.company}</p>
+                  <div
+                    className="border-t pt-4"
+                    style={{
+                      borderColor: theme.borders.light,
+                    }}
+                  >
+                    <h4 className="font-bold" style={{ color: theme.text.primary }}>
+                      {testimonial.name}
+                    </h4>
+                    <p className="text-sm" style={{ color: theme.text.secondary }}>
+                      {testimonial.company}
+                    </p>
                   </div>
                 </motion.div>
               </ScrollReveal>
@@ -830,24 +1029,33 @@ export default function Home() {
       {/* ===== CTA SECTION ===== */}
       <section id="contact" className="py-28 px-6">
         <ScrollReveal variant={scaleInVariant}>
-          <div className={`max-w-5xl mx-auto rounded-3xl border ${theme.borders.light} bg-gradient-to-br ${theme.gradients.hover} p-12 md:p-20 text-center backdrop-blur-xl overflow-hidden relative`}>
+          <div
+            className="max-w-5xl mx-auto rounded-3xl p-12 md:p-20 text-center backdrop-blur-xl overflow-hidden relative"
+            style={{
+              border: `1px solid ${theme.borders.light}`,
+              background: theme.gradients.cardHover,
+            }}
+          >
             <motion.div
               animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.6, 0.3] }}
               transition={{ duration: 8, repeat: Infinity }}
-              className={`absolute -top-32 -right-32 w-64 h-64 rounded-full ${theme.glows.primary} blur-3xl`}
+              className="absolute -top-32 -right-32 w-64 h-64 rounded-full blur-3xl"
+              style={{
+                background: theme.glows.primary,
+              }}
             />
 
             <div className="relative z-10 space-y-8">
               <ScrollReveal variant={slideInFromTop}>
                 <SplitText
-                  text="Ready to Build Your Next Product?"
+                  text={theme.sections.cta.title}
                   className="text-5xl md:text-6xl font-black leading-tight"
                 />
               </ScrollReveal>
 
               <ScrollReveal variant={slideInFromBottom} index={1}>
-                <p className="mx-auto max-w-2xl text-lg text-gray-400">
-                  Let's discuss your idea and create scalable software solutions.
+                <p className="mx-auto max-w-2xl text-lg" style={{ color: theme.text.secondary }}>
+                  {theme.sections.cta.description}
                 </p>
               </ScrollReveal>
 
@@ -856,19 +1064,32 @@ export default function Home() {
                   <motion.button
                     whileHover={{
                       scale: 1.08,
-                      boxShadow: `0 0 30px ${theme.animations.glow}`,
                     }}
                     whileTap={{ scale: 0.95 }}
-                    className={`px-8 py-4 bg-gradient-to-r ${theme.gradients.primary} rounded-xl font-bold text-white shadow-lg`}
+                    className="px-8 py-4 rounded-xl font-bold text-white shadow-lg"
+                    style={{
+                      background: theme.gradients.primary,
+                    }}
                   >
-                    Contact Us
+                    {theme.buttons.contact}
                   </motion.button>
                   <motion.button
                     whileHover={{ scale: 1.08 }}
                     whileTap={{ scale: 0.95 }}
-                    className={`px-8 py-4 border-2 border-white/20 rounded-xl font-bold text-white hover:bg-white/10 transition-all`}
+                    className="px-8 py-4 rounded-xl font-bold transition-all"
+                    style={{
+                      border: `2px solid ${theme.borders.light}`,
+                      color: theme.text.primary,
+                      backgroundColor: "transparent",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.backgroundColor = `${theme.primary.main}20`;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.backgroundColor = "transparent";
+                    }}
                   >
-                    Schedule Meeting
+                    {theme.buttons.schedule}
                   </motion.button>
                 </motion.div>
               </ScrollReveal>
@@ -878,11 +1099,20 @@ export default function Home() {
       </section>
 
       {/* ===== FOOTER ===== */}
-      <footer className={`relative border-t border-white/10 bg-black/20 py-20 backdrop-blur-xl overflow-hidden`}>
+      <footer
+        className="relative border-t py-20 backdrop-blur-xl overflow-hidden"
+        style={{
+          borderColor: theme.borders.light,
+          backgroundColor: `${theme.primary.main}08`,
+        }}
+      >
         <motion.div
           animate={{ opacity: [0.3, 0.6, 0.3] }}
           transition={{ duration: 8, repeat: Infinity }}
-          className={`absolute left-0 top-0 h-64 w-64 rounded-full ${theme.glows.primary} blur-3xl`}
+          className="absolute left-0 top-0 h-64 w-64 rounded-full blur-3xl"
+          style={{
+            background: theme.glows.primary,
+          }}
         />
 
         <div className="relative z-10 mx-auto max-w-7xl px-6">
@@ -899,17 +1129,26 @@ export default function Home() {
             <ScrollReveal variant={slideInFromBottom} className="lg:col-span-2">
               <div className="space-y-6">
                 <div className="flex items-center gap-3">
-                  <div className={`h-10 w-10 rounded-lg bg-gradient-to-br ${theme.gradients.primary} flex items-center justify-center text-white font-bold`}>
-                    T
+                  <div
+                    className="h-10 w-10 rounded-lg flex items-center justify-center text-white font-bold"
+                    style={{
+                      background: theme.gradients.primary,
+                    }}
+                  >
+                    {theme.brand.logoText}
                   </div>
                   <div>
-                    <h2 className="font-bold">TechNova Solutions</h2>
-                    <p className="text-xs text-gray-400">Modern Software Company</p>
+                    <h2 className="font-bold" style={{ color: theme.text.primary }}>
+                      {theme.brand.fullName}
+                    </h2>
+                    <p className="text-xs" style={{ color: theme.text.secondary }}>
+                      {theme.brand.footerTagline}
+                    </p>
                   </div>
                 </div>
 
-                <p className="text-sm text-gray-400 leading-relaxed max-w-xs">
-                  We build scalable web platforms, AI-powered systems, mobile applications, and enterprise cloud solutions.
+                <p className="text-sm leading-relaxed max-w-xs" style={{ color: theme.text.secondary }}>
+                  {theme.brand.description}
                 </p>
 
                 <motion.div
@@ -921,13 +1160,18 @@ export default function Home() {
                   }}
                   className="flex gap-3"
                 >
-                  {["LinkedIn", "GitHub", "Twitter", "Dribbble"].map((item, i) => (
+                  {theme.footer.socialLinks.map((item, i) => (
                     <motion.a
                       key={i}
                       href="#"
                       variants={fadeUp}
                       whileHover={{ y: -3 }}
-                      className={`text-xs px-3 py-2 rounded-lg border border-white/10 bg-white/5 ${theme.hoverBorder} ${theme.hoverText} transition-all`}
+                      className="text-xs px-3 py-2 rounded-lg transition-all"
+                      style={{
+                        border: `1px solid ${theme.borders.light}`,
+                        backgroundColor: `${theme.primary.main}15`,
+                        color: theme.primary.light,
+                      }}
                     >
                       {item}
                     </motion.a>
@@ -937,19 +1181,12 @@ export default function Home() {
             </ScrollReveal>
 
             {/* Links Sections */}
-            {[
-              {
-                title: "Company",
-                links: ["About Us", "Careers", "Blog", "Contact", "Partnership"],
-              },
-              {
-                title: "Services",
-                links: ["Web Development", "Mobile Apps", "Cloud Solutions", "AI Automation", "UI/UX Design"],
-              },
-            ].map((col, i) => (
+            {theme.footer.sections.map((col, i) => (
               <ScrollReveal key={i} variant={slideInFromBottom} index={i + 1}>
                 <div>
-                  <h3 className="font-bold mb-4 text-white">{col.title}</h3>
+                  <h3 className="font-bold mb-4" style={{ color: theme.text.primary }}>
+                    {col.title}
+                  </h3>
                   <motion.div
                     className="space-y-3"
                     initial="hidden"
@@ -965,7 +1202,8 @@ export default function Home() {
                         href="#"
                         variants={revealText}
                         whileHover={{ x: 5 }}
-                        className={`text-sm text-gray-400 ${theme.hoverText} transition-colors block`}
+                        className="text-sm transition-colors block"
+                        style={{ color: theme.text.secondary }}
                       >
                         {link}
                       </motion.a>
@@ -978,22 +1216,32 @@ export default function Home() {
             {/* Newsletter */}
             <ScrollReveal variant={slideInFromBottom} index={3}>
               <div className="space-y-4">
-                <h3 className="font-bold text-white">Newsletter</h3>
-                <p className="text-xs text-gray-400 leading-relaxed">
-                  Subscribe to receive updates and insights.
+                <h3 className="font-bold" style={{ color: theme.text.primary }}>
+                  {theme.footer.newsletter.title}
+                </h3>
+                <p className="text-xs leading-relaxed" style={{ color: theme.text.secondary }}>
+                  {theme.footer.newsletter.description}
                 </p>
                 <div className="space-y-2">
                   <input
                     type="email"
-                    placeholder="Your email"
-                    className={`w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-${theme.primary.main}`}
+                    placeholder={theme.footer.newsletter.placeholder}
+                    className="w-full px-4 py-2 rounded-lg text-white placeholder:text-gray-500 text-sm focus:outline-none focus:ring-2"
+                    style={{
+                      backgroundColor: `${theme.primary.main}15`,
+                      border: `1px solid ${theme.borders.light}`,
+                      focusRing: theme.primary.light,
+                    }}
                   />
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className={`w-full px-4 py-2 rounded-lg bg-gradient-to-r ${theme.gradients.primary} text-white font-bold text-sm hover:shadow-lg transition-all`}
+                    className="w-full px-4 py-2 rounded-lg text-white font-bold text-sm hover:shadow-lg transition-all"
+                    style={{
+                      background: theme.gradients.primary,
+                    }}
                   >
-                    Subscribe
+                    {theme.footer.newsletter.button}
                   </motion.button>
                 </div>
               </div>
@@ -1001,11 +1249,23 @@ export default function Home() {
           </motion.div>
 
           {/* Footer Bottom */}
-          <div className={`border-t border-white/10 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-gray-500`}>
-            <p>© 2026 TechNova Solutions. All rights reserved.</p>
+          <div
+            className="border-t pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs"
+            style={{
+              borderColor: theme.borders.light,
+              color: theme.text.tertiary,
+            }}
+          >
+            <p>{theme.footer.copyright}</p>
             <div className="flex gap-6">
-              {["Privacy Policy", "Terms of Service", "Cookies"].map((link) => (
-                <motion.a key={link} href="#" whileHover={{ color: "#d946ef" }} className={`${theme.hoverText} transition-colors`}>
+              {theme.footer.legalLinks.map((link) => (
+                <motion.a
+                  key={link}
+                  href="#"
+                  whileHover={{ color: theme.primary.light }}
+                  className="transition-colors"
+                  style={{ color: theme.text.tertiary }}
+                >
                   {link}
                 </motion.a>
               ))}

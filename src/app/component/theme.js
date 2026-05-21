@@ -2,6 +2,35 @@
 // Theme 1: Purple & Violet (Default Modern)
 
 export const theme = {
+
+
+  teamMembers: [
+      {
+        name: "Narendra Jangid",
+        role: "Founder & Backend Engineer",
+        image: "https://i.pravatar.cc/300?img=12",
+        description: "Passionate about creating modern software with scalable architecture.",
+      },
+      {
+        name: "Aarav Mehta",
+        role: "Frontend Developer",
+        image: "https://i.pravatar.cc/300?img=15",
+        description: "Passionate about creating modern software with scalable architecture.",
+      },
+      {
+        name: "Priya Sharma",
+        role: "UI/UX Designer",
+        image: "https://i.pravatar.cc/300?img=32",
+        description: "Passionate about creating modern software with scalable architecture.",
+      },
+      {
+        name: "Rahul Verma",
+        role: "Cloud Architect",
+        image: "https://i.pravatar.cc/300?img=18",
+        description: "Passionate about creating modern software with scalable architecture.",
+      },
+    ],
+
   // Primary Colors
   primary: {
     light: "#fuchsia-400",
